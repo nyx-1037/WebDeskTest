@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue音乐播放器</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .maxBox{
+        width: 1200px;
+        height:1200px;
+        margin: 0 auto;
+        background-color: #D2E2F3;
+        border-radius: 50px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border:5px solid black;
+        margin-top:50px;
+    }
+    .container {
+        width: 600px;
+        height:1100px;
+        margin: 0 0 400px 0;
+        border-radius: 45px;
+        background-color: #D2E2F3;
+        border-right:3px solid grey;
+    }
+    h1 {
+        text-align: center;
+        border-bottom:5px solid balck;
+    }
+    ul {
+        list-style: none;
+    }
+
+    ul li {
+        margin: 20px 20px;
+        padding: 10px 5px;
+        border-radius: 3px;
+        
+    }
+
+    ul li.active {
+        background-color: skyblue;
+    }
+    li:hover{
+        background-color: rgba(128, 128, 128, 0.30);
+        transform: scale(1.05);
+    }
+    .btn {
+        margin: 15px 100px;
+        padding: 10px 15px;
+        border-radius: 5px;
+        background-color: skyblue;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    .btn:hover {
+        background-color: #42b983;
+        color: white;
+    }
+    audio {
+        width: 1000px;
+        height: 50px;
+        margin: 0 50px;
+        border-radius: 30px;
+        background-color: #D2E2F3;
+    }
+    .controls {
+        width:1100px;
+        height:150px;
+        margin:10px 50px;
+        padding: 10px 0;
+        line-height:1.10;
+        font-size: 20px;
+        color:red;
+        font-weight: bold;
+        text-align: center;
+        background-color: #D2E2F3;
+        border-radius: 50px;       
+        display: flex;
+        justify-content: space-between;
+    }
+    .controls:hover{
+        background-color:rgb(0, 168, 240);
+        transform: scale(1.05);
+    }
+    canvas {
+        border: 1px solid #000;
+        float:right;
+        margin-right:100px;
+        margin-top:200px;
+        border-radius: 50%;
+        background-color: grey;
+  }
+    canvas:hover{
+        transform: scale(1.05);
+    }
+</style>
+<body>
+    <div class="maxBox">
+
+        <canvas id="canvas" width="450" height="450"></canvas>
+        <img id="image" src="logo3.jpg" alt="Image" hidden>
+        <script>
+          const canvas = document.getElementById('canvas');
+          const ctx = canvas.getContext('2d');
+          const image = document.getElementById('image');
+          // 设置图片的属性
+          let x = canvas.width / 2;
+          let y = canvas.height / 2;
+          let angle = 0;
+          function drawImage() {
+            // 清除之前的画面
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // 保存当前的绘图状态
+            ctx.save();
+            // 将坐标系原点移动到画布中心
+            ctx.translate(x, y);
+            // 旋转坐标系
+            ctx.rotate(angle);
+            // 绘制图片
+            ctx.drawImage(image, -image.width / 2, -image.height / 2);
+            // 恢复之前的绘图状态
+            ctx.restore();
+            // 增加角度以便下一次绘制时图片会旋转
+            angle += 0.003;
+            // 请求下一次动画帧
+            requestAnimationFrame(drawImage);
+          }
+          // 等待图片加载完成后开始动画
+          image.onload = function() {
+            drawImage();
+          };
+        </script>
+
+    <div class="container">
+        <br>
+        <h1>Vue音乐播放器2.0</h1>
+    
+    <div id='app'>
+        
+        <ul>
+            <li :class='{active:index===currentIndex}' v-for='(item,index) in musicData' :key='item.id'
+                @click='handleClick(index)' title="点击播放{{item.id}} - {{item.name}}">
+                <h2>{{item.id}} - {{item.name}}</h2>
+                <p>{{item.author}}</p>
+            </li>
+        </ul>
+        <div class="controls">
+                <span>当前播放：{{currentIndex+1}} - {{musicData[currentIndex].name}}</p>
+                    <br>
+                <audio :src="getCurrentSongSrc" controls autoplay @ended='handleEnded'></audio>
+                <br>
+            <button @click='handleBefore' class="btn">上一首</button>
+            <button @click='handleNext' class="btn">下一首</button>
+        </div>
+        
+    </div>
+    
+    
+    <script src="./vue.js"></script>
+    <script>
+        const musicData = [{
+                id: 1,
+                name: 'Da Capo',
+                author: 'HOYO-MiX',
+                songSrc: './MusicData/HOYO-MiX - Da Capo.mp3'
+            },
+            {
+                id: 2,
+                name: '轻涟 La vaguelette',
+                author: 'HOYO-MiX',
+                songSrc: './MusicData/HOYO-MiX - 轻涟 La vaguelette.mp3'
+            },
+            {
+                id: 3,
+                name: 'WHITE NIGHT (不眠之夜)',
+                author: 'Jake Miller,HOYO-MiX',
+                songSrc: './MusicData/Jake Miller,HOYO-MiX - WHITE NIGHT (不眠之夜).mp3'
+            },
+            {
+                id: 4,
+                name: 'Regression',
+                author: '阿云嘎,HOYO-MiX',
+                songSrc: './MusicData/阿云嘎,HOYO-MiX - Regression.mp3'
+            },
+            {
+                id: 5,
+                name: 'Moon Halo',
+                author: '茶理理,TetraCalyx,Hanser',
+                songSrc: './MusicData/茶理理,TetraCalyx,Hanser - Moon Halo.mp3'
+            },
+            {
+                id: 6,
+                name: 'TruE',
+                author: '黄龄,HOYO-MiX',
+                songSrc: './MusicData/黄龄,HOYO-MiX - TruE.mp3'
+            },
+            {
+                id: 7,
+                name: 'Starfall',
+                author: '袁娅维TIA RAY',
+                songSrc: './MusicData/袁娅维TIA RAY - Starfall.mp3'
+            },
+            {
+                id: 8,
+                name: 'Rubia',
+                author: '周深',
+                songSrc: './MusicData/周深 - Rubia.mp3'
+            },
+            {
+                id: 9,
+                name: '未来再见',
+                author: '陶典,Hanser,花玲',
+                songSrc: './MusicData/陶典,Hanser,花玲 - 未来再见.mp3'
+            },
+           {
+                id: 10,
+                name: 'Legends Never Die',
+                author: 'Against the Current',
+                songSrc: './MusicData/Against the Current - Legends Never Die.mp3'
+           },
+            
+        ];
+
+        new Vue({
+            el: '#app',
+            data: {
+                musicData,
+                currentIndex: 0
+            },
+            computed:{
+                getCurrentSongSrc(){
+                    return this.musicData[this.currentIndex].songSrc;
+                }
+            },
+            methods: {
+                handleClick(index) {
+                    this.currentIndex = index;
+                },
+                handleEnded() {
+                    this.handleNext();
+                },
+                handleStarted() {
+                    this.handleBefore();
+                },
+                handleNext() {
+                    this.currentIndex++;
+                    if (this.currentIndex === this.musicData.length) {
+                        this.currentIndex = 0;
+                    }
+                },
+                handleBefore(){
+                    this.currentIndex--;
+                    if (this.currentIndex < 0) {
+                        this.currentIndex = this.musicData.length - 1;
+                    }
+                    }
+                }
+            }
+        )
+    </script>
+    </div>
+
+    
+</div>
+</body>
+</html>
