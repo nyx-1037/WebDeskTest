@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>七夕表白信封</title>
+   <link href="modal.css" rel="stylesheet">
+</head>
+<body>
+   <div class="questionnaire" id="questionnaire">
+       <div class="top">
+           <div class="left">
+               <img src="./images/star.png" alt="">
+           </div>
+           <div class="right" id="textCount">
+               <span id="active">1</span>/10题
+           </div>
+           <div class="middle">
+               <img src="./images/love.png" alt="">
+           </div>
+       </div>
+       <div class="bottom">
+           <div id="summary">
+               在这个浪漫的日子，让我们先玩一个问答小游戏吧，全部答对才可以开启表白信封哦！
+               <div class="submit">
+                   <button id="start" class="pink-button">开始</button>
+               </div>
+           </div>
+           <div id="question1" class="question-con">
+               <div class="question">1.认识的时间<br><span style="font-size:10px; color: #888;">（请按照2024/8/10这种格式填写）</span></div>
+               <div class="answer">
+                   <div class="list">
+                       <input type="text" name="group1" id="option1">
+                   </div>
+               </div>
+           </div>
+           <div id="question2" class="question-con">
+               <div class="question">2.第一次见面时间<br><span style="font-size:10px; color: #888;">（请按照2024/8/10这种格式填写）</div>
+               <div class="answer">
+                   <div class="list">
+                       <input type="text" name="group2" id="option1">
+                   </div>
+               </div>
+           </div>
+           <div id="question3" class="question-con">
+               <div class="question">3.第一次闹矛盾时间<br><span style="font-size:10px; color: #888;">（请按照2024/8/10这种格式填写）</div>
+               <div class="answer">
+                   <div class="list">
+                       <input type="text" name="group3" id="option1">
+                   </div>
+               </div>
+           </div>
+           <div id="question4" class="question-con">
+               <div class="question">4.女朋友的鞋码是？</div>
+               <div class="answer">
+                   <div class="list">
+                       <input type="text" name="group4" id="option1">
+                   </div>
+               </div>
+           </div>
+           <div id="question5" class="question-con">
+               <div class="question">5.女朋友的身高体重是？</div>
+               <div class="answer">
+                   <div class="list">
+                       <div class="item">
+                           <input type="radio" name="group5" id="option1" value="option1">
+                           <label for="option1">155cm 47kg</label>
+                       </div>
+                       <div class="item">
+                           <input type="radio" name="group5" id="option2" value="option2">
+                           <label for="option2">162cm 48kg</label>
+                       </div>
+                       <div class="item">
+                           <input type="radio" name="group5" id="option3" value="option3">
+                           <label for="option3">170cm 46kg</label>
+                       </div>
+                   </div>
+               </div>
+           </div>
+            <div id="question6" class="question-con">
+                <div class="question">6.女朋友的生日是？</div>
+                <div class="answer">
+                    <div class="list">
+                        <input type="text" name="group6" id="option1">
+                    </div>
+                </div>
+            </div>
+            <div id="question7" class="question-con">
+                <div class="question">7.女朋友喜欢的食物是？</div>
+                <div class="answer">
+                    <div class="list">
+                        <input type="text" name="group7" id="option1">
+                    </div>
+                </div>
+            </div>
+            <div id="question8" class="question-con">
+                <div class="question">8.女朋友的兴趣爱好是？</div>
+                <div class="answer">
+                    <div class="list">
+                        <input type="text" name="group8" id="option1">
+                    </div>
+                </div>
+            </div>
+            <div id="question9" class="question-con">
+                <div class="question">9.女朋友的理想型是？</div>
+                <div class="answer">
+                    <div class="list">
+                        <input type="text" name="group9" id="option1">
+                    </div>
+                </div>
+            </div>
+            <div id="question10" class="question-con">
+                <div class="question">10.女朋友最让你感动的事情是？</div>
+                <div class="answer">
+                    <div class="list">
+                        <input type="text" name="group10" id="option1">
+                    </div>
+                </div>
+            </div>
+            <div class="submit">
+                <button id="submitBtn" class="pink-button">提交</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="modal.js"></script>
+    <script>
+        $("#start").click(function() {
+            $("#summary").hide();
+            $("#question1").show();
+            $("#textCount").text("2/10题");
+        });
+
+        $("#submitBtn").click(function() {
+            let answers = [];
+            for (let i = 1; i <= 10; i++) {
+                let answer = $("#option1").val();
+                answers.push(answer);
+                $("#question" + i).hide();
+            }
+            $("#textCount").text("10/10题");
+            $("#summary").show();
+            $("#summary").html("恭喜你，全部答对！<br>让我们开启表白信封吧！");
+            // 在这里添加开启表白信封的代码
+        });
+    </script>
+</body>
+</html>
+
