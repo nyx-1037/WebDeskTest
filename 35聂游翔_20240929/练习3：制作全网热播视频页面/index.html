@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>全网热播视频</title>
+    <link rel="stylesheet" href="css/play.css">
+	<style>
+		.aaStyle{
+			background-color: orange;
+		}
+		.bbStyle{
+			background-color: grey;
+		}
+
+
+	</style>
+</head>
+<body>
+<section id="play">
+    <h1>全网热播视频</h1>
+    <ul>
+        <li id="aa"><img src="images/flv01.jpg"><p>昊花梦</p><span>1</span></li>
+        <li id="aa"><img src="images/flv02.jpg"><p>好先生</p><span>2</span></li>
+        <li>
+            <ol id="bb">
+                <li><span>3</span>三八线<p>加入看单</p></li>
+                <li><span>4</span>吉详天宝<p>加入看单</p></li>
+                <li><span>5</span>亲爱的翻译官<p>加入看单</p></li>
+                <li><span>6</span>仙剑云之凡<p>加入看单</p></li>
+                <li><span>7</span>权力的游戏第五季<p>加入看单</p></li>
+                <li><span>8</span>琅琊榜<p>加入看单</p></li>
+                <li><span>9</span>那年青春我们正好<p>加入看单</p></li>
+                <li><span>10</span>乡村受情8（上）<p>加入看单</p></li>
+            </ol>
+        </li>
+    </ul>
+</section>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+   // 设置#play ul li的边距为0px 3px
+   $('#play ul li').css('margin','0px 3px');
+
+   // 为#aa span添加aaStyle类
+   $('#aa span').addClass('aaStyle');
+
+   // 为#bb设置背景颜色为rgb(0,0,0,0.1)
+   $('#bb').css('background-color','rgb(0,0,0,0.1)')
+
+   // 为#bb li span添加bbStyle类
+   $('#bb li span').addClass('bbStyle');
+
+   // 当文档加载完成后，执行以下代码
+   $(document).ready(function(){
+       // 定义两个图片URL
+       var imageUrl1 = './images/green.jpg';
+       var imageUrl2 = './images/orange.jpg';
+
+       // 为#bb li添加图片
+       $('#bb li:eq(0)').append('<img src="' + imageUrl2 + '"style="float:right"/>');
+       $('#bb li:eq(1)').append('<img src="' + imageUrl1 + '"style="float:right"/>');
+       $('#bb li:eq(2)').append('<img src="' + imageUrl2 + '"style="float:right"/>');
+       $('#bb li:eq(3)').append('<img src="' + imageUrl2 + '"style="float:right"/>');
+       $('#bb li:eq(4)').append('<img src="' + imageUrl2 + '"style="float:right"/>');
+       $('#bb li:eq(5)').append('<img src="' + imageUrl1 + '"style="float:right"/>');
+       $('#bb li:eq(6)').append('<img src="' + imageUrl1 + '"style="float:right"/>');
+       $('#bb li:eq(7)').append('<img src="' + imageUrl1 + '"style="float:right"/>');
+
+       // 当鼠标悬停在#bb li上时，执行以下代码
+       $("#bb li").hover(
+           function() {
+               // 鼠标移入时
+               $(this).css({
+                   'background-color':'red',
+                   'color':'white',
+                   'font-weight':'bold',
+               });
+               $(this).find('span').css('background-color','orange');
+               $(this).find('p').css('display','block');
+               $(this).find('img').css('display','none');
+           }, 
+           function() {
+               // 鼠标移出时
+               $(this).css({
+                   'background-color':'rgb(0,0,0,0.0)',
+                   'color':'black',
+                   'font-weight':'normal',
+               });
+               $(this).find('span').css('background-color','grey');
+               $(this).find('p').css('display','none');
+               $(this).find('img').css('display','block');
+           }
+       );
+   });
+</script>
+
+</body>
+</html>
